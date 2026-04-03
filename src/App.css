@@ -171,6 +171,13 @@
   padding-left: 9% !important;
 }
 
+@media (max-width: 768px) {
+  .peopleNameInput input {
+    width: 87% !important;
+    padding-left: 11% !important;
+  }
+}
+
 .peopleNameInput button{
   position: absolute;
   left: -5px;
