@@ -78,11 +78,12 @@ function CreateSplit(props) {
           paddingTop: "20px", 
           width: "100%"
         }}>
-        <div style={{display: "flex", columnGap: "10px", width: "92% !important", marginLeft: "3%" }}>
+        <div style={{display: "flex", columnGap: "15px", width: "92% !important", marginLeft: "3%" }}>
           <i class="bi bi-calendar3"></i>
           <div style={{marginTop: "-5px", lineHeight: "5px"}}>
             <h2>Create New Split</h2>
-            <p>Add an expense, enter the number of people, and split it your way</p>
+            <p>Add an expense, enter the number of people,</p>
+            <p>and split it your way</p>
           </div>
         </div>
        
