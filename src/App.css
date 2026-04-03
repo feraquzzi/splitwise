@@ -1,38 +1,258 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App{
+  margin-left: 10%;
+  margin-top: 50px;
+  width: 80%;
+  min-height: 500px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .App {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+    margin-top: 0px;
+    width: 100%;
+  }
+}
+
+.createSplit{
+  box-shadow: 0px 0px 20px 5px rgba(120,120,120, 0.1);
+  width: 45%;
+  min-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .createSplit {
+    width: 100%;
+  }
+}
+
+.all{
+  width:92%;
+  min-height: 400px;
+  margin-left: 4%;
+  margin-top:20px;
+}
+
+.bi-calendar3{
+  background-color: rgb(27, 140, 75);
+  padding: 2px 5px !important;
+  color:#fff;
+  font-size: 23px;
+  border-radius: 5px;
+  align-self: center;
+}
+
+.expensedetails{
+  width: 100%;
+  background-color: transparent;
+}
+
+.expenseFields{
+  position: relative;
+}
+
+.nairaIcon{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color:rgba(27, 140, 75) !important;
+  font-size: 20px;
+  width:20px;
+  height:20px;
+  filter: invert(0.5) sepia(1) grayscale(1) brightness(0.8) drop-shadow(0 0 2px rgba(27, 140, 75, 0.5));
+}
+
+.bi-calendar2-week-fill{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color:rgba(27, 140, 75);
+  font-size: 20px;
+}
+
+.bi-1-square-fill{
+  font-size: 25px;
+  color: rgb(27, 140, 75);
+}
+
+.bi-2-square-fill{
+  font-size: 25px;
+  color: rgb(27, 140, 75);
+}
+
+.bi-3-square-fill{
+  font-size: 25px;
+  color: rgb(27, 140, 75);
+}
+
+.expensedetails input{
+  width: 89% !important;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 5px;
+  font-size: 16px;
+  height: 37px;
+  padding-left: 9% !important;
+}
+
+.splitResult{
+  box-shadow: 0px 0px 20px 5px rgba(120,120,120, 0.1);
+  width: 45%;
+  min-height: 400px;
+}
+
+.people{
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  flex-direction: column;
 }
 
-.App-link {
-  color: #61dafb;
+.addPeople{
+  background-color:rgba(211, 211, 211, 0.3);
+  border-radius: 5px;
+  width:290px;
+  height:42px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.addPeople button{
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  height:40px;
+  font-size: 22px;
+  /* background-color: rgba(211, 211, 211, 0.3); */
+  color: rgb(100,100,100);
+}
+
+.addPeople input{
+  height: 38px;
+  border: none;
+  outline: none;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 16px;
+  /* width: 100%; */
+}
+
+.createSplit p{
+  font-size: 13px;
+  color: rgb(100,100,100);
+}
+
+.peopleName{
+  width:100%;
+  background-color: transparent;
+}
+
+.peopleName .peopleNameInput{
+  width: 100%;
+  position: relative
+}
+
+.peopleNameInput input{
+  width: 89% !important;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 7px;
+  font-size: 16px;
+  height: 25px;
+  padding-left: 9% !important;
+}
+
+.peopleNameInput button{
+  position: absolute;
+  left: -5px;
+  top: 0;
+  margin-top:5px;
+  border: none;
+  background-color: rgba(120,120,120, 0.1);
+  font-size: 18px;
+  color: rgb(100,100,100);
+}
+
+.bi-person-fill{
+  font-size:25px;
+  color: rgba(120,120,120, 0.8);
+}
+
+.splitTypeOptions{
+  width: 100%;
+  min-height:80px;
+  background-color: transparent;
+  margin-bottom: 20px;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.card {
+  width: 30%;
+  min-height: 80px;
+  /* display: flex; */
+  border: 0.5px solid rgba(120,120,120, 0.3);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.2s;
+  background-color: rgba(180,180,180, 0.1);
+}
+
+.cardTextSplitType{
+  margin-left: 8%;
+  display:flex;
+  margin-top: 10px;
+  column-gap: 5px;
+}
+
+.cardTextSplitType .splitTitle{
+  color: #000000;
+  font-weight: bold;
+}
+
+.cardTextSplitType div{
+  margin-top: -8% !important;
+}
+
+.card:hover {
+  border: 1.5px solid rgba(27, 140, 75);
+}
+
+.card.active {
+  background: rgba(225, 242, 232);
+  color: #000000;
+  border-color: rgba(27, 140, 75);
+}
+
+.smallText{
+  font-size: 10px !important;
+  color: rgb(100,100,100);
+}
+
+.bi-percent{
+  color: rgba(27, 140, 75);
+  font-weight: bold;
+}
+
+.bi-diagram-3{
+  color: rgba(27, 140, 75);
+  font-weight: bold;
+}
+
+.bi-pen{
+  color: rgba(27, 140, 75);
+  font-weight: bold;
 }
