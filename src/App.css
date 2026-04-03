@@ -105,6 +105,7 @@
   box-shadow: 0px 0px 20px 5px rgba(120,120,120, 0.1);
   width: 45%;
   min-height: 400px;
+  display: none;
 }
 
 .people{
