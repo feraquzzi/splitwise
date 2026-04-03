@@ -74,8 +74,8 @@ function CreateSplit(props) {
       <div style={{
           marginBottom: "20px", 
           boxShadow:"0px 0px 20px 5px rgba(120,120,120, 0.1)",  
-          paddingBottom: "10px", 
-          paddingTop: "10px", 
+          paddingBottom: "20px", 
+          paddingTop: "20px", 
           width: "100%"
         }}>
         <div style={{display: "flex", columnGap: "10px", width: "92% !important", marginLeft: "3%" }}>
