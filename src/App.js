@@ -153,9 +153,10 @@ function CreateSplit(props) {
         const name = contacts[0].name?.[0];
         const phone = contacts[0].tel?.[0];
 
-        // ✅ correct condition
+     
         if (name || phone) {
-          const displayName = name || phone;
+          const displayName = props.inputs[index]?.name || props.inputs[index]?.phone ||
+          `Person ${index + 1}`;
 
           props.handleChange(index, {
             name: displayName,
@@ -257,12 +258,13 @@ function CreateSplit(props) {
           
           <div className="peopleName">
             {props.inputs.map((input, index) => (
+              
               <div key={index} className="peopleNameInput" style={{ marginBottom: "10px" }}>
 
                 <input 
                   type="text"
                   placeholder={`Person ${index + 1}`}
-                  value={input}
+                  value={input?.name || input?.phone || `Person ${index + 1}`}
                   onChange={(e) =>
                     props.handleChange(index, {
                       ...props.inputs[index],
