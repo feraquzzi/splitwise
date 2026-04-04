@@ -490,12 +490,18 @@ function SplitResult({result, inputs, note, title, amount, count, splitType}) {
       </div>
       
 
-      <div>
+      <div style={{width: "94%", marginLeft: "3%"}}>
+        <p>Payment Information</p>
         {note && (
-          <p style={{ fontStyle: "italic", marginBottom: "10px" }}>
-            Instructions: {note}
+          <p style={{ fontStyle: "normal", marginBottom: "10px", backgroundColor: "rgba(77, 150, 255, 0.1)", padding: "10px", borderRadius: "5px" }}>
+           <i class="bi bi-info-circle"></i> {note}
           </p>
         )}
+      </div>
+
+      <div style={{width: "94%", marginLeft: "3%", display: "flex", justifyContent:"space-between", marginBottom: "20px"}}>
+        <button style={{width: "45%", padding: "12px 0px" , backgroundColor: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-send" style={{color: "rgba(27, 140, 75)"}}></i> Share</button>
+        <button style={{width: "45%", padding: "12px 0px", backgroundColor: "rgba(27, 140, 75)", color: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-check2-circle" ></i> Mark as Paid</button>
       </div>
       
     </div>
