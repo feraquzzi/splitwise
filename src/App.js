@@ -144,27 +144,22 @@ function CreateSplit(props) {
         return;
       }
 
-      const contacts = await navigator.contacts.select(
-        ['name', 'tel'],
-        { multiple: false }
-      );
+      const contacts = await navigator.contacts.select(['name', 'tel'], { multiple: false });
 
       if (contacts.length > 0) {
-        const name = contacts[0].name?.[0] || "";
-        const phone = contacts[0].tel?.[0] || "";
+        const name = contacts[0].name?.[0];
+        const phone = contacts[0].tel?.[0];
 
         if (name || phone) {
-          props.handleChange(index, {
-            name: name,
-            phone: phone
-          });
+          
+          props.handleChange(index, { name: name || "", phone: phone || "" });
         }
       }
-
     } catch (err) {
       console.log(err);
     }
   }
+  
   
   return(
     <div className='createSplit'>
@@ -260,7 +255,7 @@ function CreateSplit(props) {
                 <input 
                   type="text"
                   placeholder={`Person ${index + 1}`}
-                  value={input?.name || ""}
+                  value={props.inputs[index]?.name || props.inputs[index]?.phone || ""}
                   onChange={(e) =>
                     props.handleChange(index, {
                       ...props.inputs[index],
