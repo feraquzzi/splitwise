@@ -15,7 +15,7 @@ export default function App() {
 
   function increasePeople() {
     setCount((c) => c + 1);
-    setInputs([...inputs, ""]);   
+    setInputs([...inputs, { name: "", phone: "" }]);  
     setValues([...values, ""]);   
   }
 
@@ -89,9 +89,9 @@ export default function App() {
      
   }
 
-  handleNoteChange("");
-  handleTitleChange("");
-  handleAmountChange("");
+  // handleNoteChange("");
+  // handleTitleChange("");
+  // handleAmountChange("");
 
 
 
@@ -150,25 +150,21 @@ function CreateSplit(props) {
       );
 
       if (contacts.length > 0) {
-        const name = contacts[0].name?.[0];
-        const phone = contacts[0].tel?.[0];
+        const name = contacts[0].name?.[0] || "";
+        const phone = contacts[0].tel?.[0] || "";
 
-     
         if (name || phone) {
-          const displayName = props.inputs[index]?.name || props.inputs[index]?.phone ||
-          `Person ${index + 1}`;
-
           props.handleChange(index, {
-            name: displayName,
-            phone: phone || ""
+            name: name,
+            phone: phone
           });
         }
       }
 
     } catch (err) {
       console.log(err);
+    }
   }
-}
   
   return(
     <div className='createSplit'>
@@ -264,7 +260,7 @@ function CreateSplit(props) {
                 <input 
                   type="text"
                   placeholder={`Person ${index + 1}`}
-                  value={input?.name || input?.phone || `Person ${index + 1}`}
+                  value={input?.name || ""}
                   onChange={(e) =>
                     props.handleChange(index, {
                       ...props.inputs[index],
