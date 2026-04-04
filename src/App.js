@@ -89,9 +89,9 @@ export default function App() {
      
   }
 
-  // handleNoteChange("");
-  // handleTitleChange("");
-  // handleAmountChange("");
+  handleNoteChange("");
+  handleTitleChange("");
+  handleAmountChange("");
 
 
 
