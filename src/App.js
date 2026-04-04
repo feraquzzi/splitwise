@@ -4,7 +4,7 @@ import './App.css';
 export default function App() {
   const [count, setCount] = useState(0);
   const [inputs, setInputs] = useState([]);
-  const [splitType, setSplitType] = useState("equal");
+  const [splitType, setSplitType] = useState("equal split");
   const [amount, setAmount] = useState("");
   const [values, setValues] = useState([]);
   const [result, setResult] = useState([]);
@@ -59,15 +59,15 @@ export default function App() {
   function calculateSplit(amount, people, splitType, values) {
     if (people === 0) return [];
 
-    if (splitType === "equal") {
+    if (splitType === "equal split") {
       return Array(people).fill(amount / people);
     }
 
-    if (splitType === "percentage") {
+    if (splitType === "percentage split") {
       return values.map(v => (Number(v) / 100) * amount);
     }
 
-    if (splitType === "custom") {
+    if (splitType === "custom split") {
       return values.map(v => Number(v));
     }
 
@@ -110,7 +110,7 @@ export default function App() {
         setTitle={setTitle}
         
       />
-      <SplitResult result={result} inputs={inputs} note={note} title={title} amount={amount} count={count}/>
+      <SplitResult result={result} inputs={inputs} note={note} title={title} amount={amount} count={count} splitType={splitType}/>
     </div>
   );
 }
@@ -244,11 +244,11 @@ function CreateSplit(props) {
                   <i class="bi bi-person-fill"></i>
                 </button>
 
-                {props.splitType !== "equal" && (
+                {props.splitType !== "equal split" && (
                   <input className='expenseAmount'
                     type="number"
                     placeholder={
-                      props.splitType === "percentage" ? "%" : "Amount"
+                      props.splitType === "percentage split" ? "%" : "Amount"
                     }
                     value={props.values[index] || ""}
                     onChange={(e) =>
@@ -278,8 +278,8 @@ function CreateSplit(props) {
           <div className="splitTypeOptions">
             <div className="cardContainer">
               <div
-                className={`card ${props.splitType === "equal" ? "active" : ""}`}
-                onClick={() => props.setSplitType("equal")}
+                className={`card ${props.splitType === "equal split" ? "active" : ""}`}
+                onClick={() => props.setSplitType("equal split")}
               >
                 
                 <div className="cardTextSplitType">
@@ -294,8 +294,8 @@ function CreateSplit(props) {
               </div>
 
               <div
-                className={`card ${props.splitType === "percentage" ? "active" : ""}`}
-                onClick={() => props.setSplitType("percentage")}
+                className={`card ${props.splitType === "percentage split" ? "active" : ""}`}
+                onClick={() => props.setSplitType("percentage split")}
               >
                 
                 <div className="cardTextSplitType">
@@ -310,8 +310,8 @@ function CreateSplit(props) {
               </div>
 
               <div
-                className={`card ${props.splitType === "custom" ? "active" : ""}`}
-                onClick={() => props.setSplitType("custom")}
+                className={`card ${props.splitType === "custom split" ? "active" : ""}`}
+                onClick={() => props.setSplitType("custom split")}
               >
                  
                 <div className="cardTextSplitType">
@@ -347,7 +347,11 @@ function CreateSplit(props) {
   );
 }
 
-function SplitResult({result, inputs, note, title, amount, count}) {
+function SplitResult({result, inputs, note, title, amount, count, splitType}) {
+
+  const colors = ["#1B8C4B", "#FF6B6B", "#4D96FF", "#FFC75F", "#9D4EDD"];
+  const bgColors = ["rgba(27, 140, 75, 0.1)", "rgba(255, 107, 107, 0.1)", "rgba(77, 150, 255, 0.1)", "rgba(255, 199, 95, 0.1)", "rgba(157, 78, 221, 0.1)"];
+
   return (
     <div className='splitResult'>
       <div style={{
@@ -454,12 +458,35 @@ function SplitResult({result, inputs, note, title, amount, count}) {
       
      
       
-      <div>
-        {result.map((value, index) => (
-          <p key={index}>
-            {inputs[index] || `Person ${index + 1}`} : ₦{value?.toFixed(2)}
-          </p>
-        ))}
+      <div style={{ backgroundColor: "#fff", 
+        width: "100%", 
+        marginTop: "10px", 
+        borderRadius: "10px", 
+        boxShadow: "0px 0px 20px 5px rgba(120,120,120, 0.1)"
+        }}>
+        <div style={{width: "92%", marginLeft: "4%", paddingTop: "5px", paddingBottom: "5px", }}>
+          <div style={{display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(120,120,120, 0.1)"}}>
+            <p style={{alignSelf: "center" , fontWeight: "500"}}>Breakdown</p>
+            <p style={{backgroundColor: "rgba(120,120,120, 0.1)", padding: "5px 10px", borderRadius: "8px"}}>{splitType}</p>
+          </div>
+        
+          {result.map((value, index) => (
+            <p key={index} style={{paddingTop: "5px", paddingBottom: "5px !important", borderBottom: "1px solid rgba(120,120,120, 0.1)"}}>
+              <div style={{display: "flex", justifyContent: "space-between"}}>
+                <p style={{alignSelf: "center"}}><i class="bi bi-person-fill"  style={{
+                  padding:"8px 8px",
+                  fontSize: "13px",
+                  backgroundColor: bgColors[index % bgColors.length],
+                  borderRadius: "5px",
+                  color: colors[index % colors.length]   
+                }}></i> {inputs[index] || `Person ${index + 1}`}</p> 
+                <span style={{alignSelf: "center" , fontWeight: "500"}}>₦{value?.toFixed(2)}</span>
+              </div>
+              
+            </p>
+          ))}
+        </div>
+        
       </div>
       
 
