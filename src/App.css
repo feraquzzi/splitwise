@@ -137,6 +137,8 @@
 .splitSummaryTitle{
   background-color: rgba(234, 240, 252, 0.2);
   width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .people{
@@ -239,6 +241,16 @@
   min-height:80px;
   background-color: transparent;
   margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .splitTitle{
+    font-size: 10px !important;
+  }
+
+  .smallText{
+    font-size: 8px !important;
+  }
 }
 
 .cardContainer {
@@ -344,11 +356,11 @@
 }
 
 .addNote .noteInput{
-  width: 91%;
+  width: 90%;
   height: 40px;
   border: 1px solid rgba(120,120,120, 0.4);
   outline: none;
   border-radius: 5px;
-  padding-left: 8% !important;
+  padding-left: 9% !important;
 
 }
