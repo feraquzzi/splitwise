@@ -5,9 +5,11 @@ export default function App() {
   const [count, setCount] = useState(0);
   const [inputs, setInputs] = useState([]);
   const [splitType, setSplitType] = useState("equal");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
   const [values, setValues] = useState([]);
   const [result, setResult] = useState([]);
+  const [note, setNote] = useState("");
+  const [title, setTitle] = useState("");
   
 
   function increasePeople() {
@@ -36,6 +38,24 @@ export default function App() {
     setValues(newValues);
   }
 
+  function handleNoteChange(value) {
+    if (value.length !== 0) {
+      setNote(value);
+    }
+  }
+
+  function handleTitleChange(value) {
+    if (value.length !== 0) {
+      setTitle(value);
+    }
+  }
+
+  function handleAmountChange(value) {
+    if (value.length !== 0) {
+      setAmount(value);
+    }
+  }
+
   function calculateSplit(amount, people, splitType, values) {
     if (people === 0) return [];
 
@@ -52,12 +72,18 @@ export default function App() {
     }
 
     return [];
+
+    
   }
 
   function handleCalculate() {
     const res = calculateSplit(amount, count, splitType, values);
     setResult(res);
   }
+
+  handleNoteChange("");
+  handleTitleChange("");
+  handleAmountChange("");
 
 
 
@@ -78,9 +104,13 @@ export default function App() {
         calculateSplit={calculateSplit}
         result={result}
         handleCalculate={handleCalculate}
+        note={note}
+        setNote={setNote}
+        title={title}
+        setTitle={setTitle}
         
       />
-      <SplitResult result={result} inputs={inputs} />
+      <SplitResult result={result} inputs={inputs} note={note} title={title} amount={amount} count={count}/>
     </div>
   );
 }
@@ -157,6 +187,8 @@ function CreateSplit(props) {
               <i class="bi bi-calendar2-week-fill"></i>
               <input type="text"  
                 className='expenseAmount'
+                value={props.title}
+                onChange={(e) => props.setTitle(e.target.value)}
               />
             </div>
             
@@ -298,6 +330,16 @@ function CreateSplit(props) {
         </div>
       </div>
 
+      <div className="addNote">
+        <i class="bi bi-pen"></i>
+        <input className='noteInput'
+          type="text"
+          placeholder="Add a note (optional)"
+          value={props.note}
+          onChange={(e) => props.setNote(e.target.value)}
+        />
+      </div>
+
       <div className='createSplitButton'>
         <button onClick={props.handleCalculate}>Calculate Split</button>
       </div>
@@ -305,16 +347,130 @@ function CreateSplit(props) {
   );
 }
 
-function SplitResult({result, inputs }) {
+function SplitResult({result, inputs, note, title, amount, count}) {
   return (
     <div className='splitResult'>
-      <h1>Split Result</h1>
+      <div style={{
+        // marginBottom: "10px !important", 
+        // boxShadow:"0px 0px 20px 5px rgba(120,120,120, 0.1)",  
+        paddingBottom: "20px",
+        paddingTop: "20px", 
+        width: "100%",
+        backgroundColor: "rgba(225, 242, 232)",
+        }}>
+        <div style={{display: "flex", columnGap: "15px", width: "92% !important", marginLeft: "3%" }}>
+          <i class="bi bi-check-circle-fill"></i>
+          <div style={{marginTop: "-5px", lineHeight: "5px"}}>
+            <h2>Split Result</h2>
+            <p style={{color: "rgba(100,100,100)", fontSize: "14px"}}>Here is how this expense is divided</p>
+          </div>
+        </div>
 
-      {result.map((value, index) => (
-        <p key={index}>
-          {inputs[index] || `Person ${index + 1}`} : ₦{value?.toFixed(2)}
-        </p>
-      ))}
+        
+        
+      </div>
+
+      <div className="splitSummaryTitle">
+        <div style={{width: "92%", marginLeft: "4%", display: "flex", columnGap: "5px"}}>
+          <i class="bi bi-pencil-square" style={{alignSelf: "center", color: "#1b8c4b", fontSize: "20px"}}></i>
+          {title && (
+            <p style={{ 
+                fontStyle: "normal", 
+                fontWeight: "bold", 
+                marginBottom: "10px", 
+                alignSelf: "center", 
+                marginTop: "5px", 
+                fontSize: "14px"
+              }}>
+              {title}
+            </p>
+          )}
+        </div>
+        
+      </div>
+
+      <div style={{backgroundColor: "#fff",
+        marginTop:"40px !important", 
+        borderBottomLeftRadius: "15px",  
+        borderBottomRightRadius: "15px",
+        boxShadow:"0px 0px 20px 5px rgba(120,120,120, 0.1)"
+        }}>
+
+        <div className="splitSumary">
+         
+          <div style={{width: "49%",
+            height: "80px" ,
+            display: "flex",
+            flexDirection: "column",
+            border: "1px solid rgba(150,150,150, 0.2)",
+            justifyContent: "center",
+            alignItems: "center",
+            boxShadow: "0px 0px 20px 5px rgba(120,120,120, 0.1)", 
+            borderRadius: "10px",
+            marginTop: "20px",
+            marginBottom: "20px",
+            }}>
+            <div style={{lineHeight: "0px", display: "flex", flexDirection: "column", alignItems: "center"}}>
+              <p style={{color: "rgb(100,100,100)" , fontSize: "14px"}}>Total Amount</p>
+              {amount && (
+                <p style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                  {"\u20A6"}{amount}
+                </p>
+              )}
+            </div>
+           
+          </div>
+          <div style={{width: "49%",
+            height: "80px" ,
+            display: "flex",
+            backgroundColor: "rgba(225, 242, 232, 0.4)",
+            border: "1px solid rgba(150,150,150, 0.2)",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            boxShadow: "0px 0px 20px 5px rgba(120,120,120, 0.1)", 
+            borderRadius: "10px",
+            marginTop: "20px",
+            marginBottom: "20px",
+            }}>
+
+
+            <div style={{lineHeight: "5px", display: "flex", flexDirection: "column", alignItems: "center"}}>
+              <p style={{color: "rgb(100,100,100)" , fontSize: "14px"}}>People</p>
+              {count && (
+                <p style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                  {count}
+                </p>
+              )}
+            </div>
+          </div>
+          
+          
+          
+        </div>
+        
+      </div>
+
+      
+     
+      
+      <div>
+        {result.map((value, index) => (
+          <p key={index}>
+            {inputs[index] || `Person ${index + 1}`} : ₦{value?.toFixed(2)}
+          </p>
+        ))}
+      </div>
+      
+
+      <div>
+        {note && (
+          <p style={{ fontStyle: "italic", marginBottom: "10px" }}>
+            Instructions: {note}
+          </p>
+        )}
+      </div>
+      
     </div>
   );
 }
