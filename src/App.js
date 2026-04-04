@@ -145,21 +145,29 @@ function CreateSplit(props) {
       }
 
       const contacts = await navigator.contacts.select(
-        ['tel'],
+        ['name', 'tel'],
         { multiple: false }
       );
 
       if (contacts.length > 0) {
+        const name = contacts[0].name?.[0];
         const phone = contacts[0].tel?.[0];
 
-        if (phone) {
-          props.handleChange(index, phone);
+        // ✅ correct condition
+        if (name || phone) {
+          const displayName = name || phone;
+
+          props.handleChange(index, {
+            name: displayName,
+            phone: phone || ""
+          });
         }
       }
+
     } catch (err) {
       console.log(err);
-    }
   }
+}
   
   return(
     <div className='createSplit'>
@@ -255,7 +263,13 @@ function CreateSplit(props) {
                   type="text"
                   placeholder={`Person ${index + 1}`}
                   value={input}
-                  onChange={(e) => props.handleChange(index, e.target.value)}
+                  onChange={(e) =>
+                    props.handleChange(index, {
+                      ...props.inputs[index],
+                      name: e.target.value
+                    })
+                  
+                  }
                   style={{ padding: "8px", width: "200px" }}
                 />
 
@@ -377,8 +391,9 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
     message += `Split Type: ${splitType}\n\n`;
 
     result.forEach((value, index) => {
-      const name = inputs[index] || `Person ${index + 1}`;
-      message += `${name}: ₦${value.toFixed(2)}\n`;
+      const name = inputs[index]?.name || `Person ${index + 1}`;
+      const phone = inputs[index]?.phone || "N/A";
+      message += `${name} || ${phone}: ₦${value.toFixed(2)}\n`;
     });
 
     if (note) {
@@ -399,6 +414,11 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
     } else {
       alert("Sharing not supported on this device");
     }
+  }
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText(generateMessage());
+    alert("Copied!");
   }
 
   return (
@@ -531,7 +551,7 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
                   backgroundColor: bgColors[index % bgColors.length],
                   borderRadius: "5px",
                   color: colors[index % colors.length]   
-                }}></i> {inputs[index] || `Person ${index + 1}`}</p> 
+                }}></i>{inputs[index]?.name || inputs[index]?.phone || `Person ${index + 1}`}</p> 
                 <span style={{alignSelf: "center" , fontWeight: "500"}}>₦{value?.toFixed(2)}</span>
               </div>
               
@@ -553,7 +573,7 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
 
       <div style={{width: "94%", marginLeft: "3%", display: "flex", justifyContent:"space-between", marginBottom: "20px"}}>
         <button onClick={handleShare} style={{fontSize:"16px", width: "48%", padding: "12px 0px" , backgroundColor: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-whatsapp" style={{color: "rgba(27, 140, 75)"}}></i> Share</button>
-        <button style={{fontSize:"16px", width: "48%", padding: "12px 0px", backgroundColor: "rgba(27, 140, 75)", color: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-check2-circle" ></i> Mark as Paid</button>
+        <button onClick={copyToClipboard} style={{fontSize:"16px", width: "48%", padding: "12px 0px", backgroundColor: "rgba(27, 140, 75)", color: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-copy"></i> Copy details</button>
       </div>
       
     </div>
