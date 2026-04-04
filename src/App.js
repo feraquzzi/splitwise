@@ -550,7 +550,7 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
                   backgroundColor: bgColors[index % bgColors.length],
                   borderRadius: "5px",
                   color: colors[index % colors.length]   
-                }}></i>{inputs[index]?.name || inputs[index]?.phone || ""}</p> 
+                }}></i> &nbsp; &nbsp; {inputs[index]?.name || inputs[index]?.phone || `Person ${index + 1}`}</p> 
                 <span style={{alignSelf: "center" , fontWeight: "500"}}>₦{value?.toFixed(2)}</span>
               </div>
               
