@@ -522,7 +522,7 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
       </div>
 
       <div style={{width: "94%", marginLeft: "3%", display: "flex", justifyContent:"space-between", marginBottom: "20px"}}>
-        <button style={{fontSize:"16px", width: "48%", padding: "12px 0px" , backgroundColor: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-send" style={{color: "rgba(27, 140, 75)"}}></i> Share</button>
+        <button style={{fontSize:"16px", width: "48%", padding: "12px 0px" , backgroundColor: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-whatsapp" style={{color: "rgba(27, 140, 75)"}}></i> Share</button>
         <button style={{fontSize:"16px", width: "48%", padding: "12px 0px", backgroundColor: "rgba(27, 140, 75)", color: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-check2-circle" ></i> Mark as Paid</button>
       </div>
       
