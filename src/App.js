@@ -383,10 +383,16 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
     message += `Total: ₦${amount}\n`;
     message += `Split Type: ${splitType}\n\n`;
 
+    // result.forEach((value, index) => {
+    //   const name = inputs[index]?.name || `Person ${index + 1}`;
+    //   const phone = inputs[index]?.phone || "N/A";
+    //   message += `${name} || ${phone}: ₦${value.toFixed(2)}\n`;
+    // });
+
     result.forEach((value, index) => {
       const name = inputs[index]?.name || `Person ${index + 1}`;
-      const phone = inputs[index]?.phone || "N/A";
-      message += `${name} || ${phone}: ₦${value.toFixed(2)}\n`;
+
+      message += `${name} : ₦${value.toFixed(2)}\n`;
     });
 
     if (note) {
@@ -427,15 +433,15 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
         justifyContent: "space-between"
         }}>
         <div style={{display: "flex", columnGap: "15px", width: "92% !important", marginLeft: "3%"}}>
-          <i class="bi bi-check-circle-fill"></i>
+          <button onClick={goBack} style={{ border: "none", backgroundColor: "transparent"}}><i class="bi bi-arrow-left" style={{fontSize: "30px"}}></i></button>
           <div style={{marginTop: "-5px", lineHeight: "5px"}}>
             <h2>Split Result</h2>
             <p style={{color: "rgba(100,100,100)", fontSize: "14px"}}>Here is how this expense is divided</p>
           </div>
           
         </div>
-        <button onClick={goBack} style={{marginRight: "5%", border: "none", backgroundColor: "transparent"}}><i class="bi bi-arrow-left" style={{fontSize: "30px"}}></i></button>
-
+        
+        <i class="bi bi-check-circle-fill" style={{marginRight: "5%", fontSize: "45px"}}></i>
         
       </div>
 
