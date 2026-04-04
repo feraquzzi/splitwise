@@ -371,6 +371,36 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
   const colors = ["#1B8C4B", "#FF6B6B", "#4D96FF", "#FFC75F", "#9D4EDD"];
   const bgColors = ["rgba(27, 140, 75, 0.1)", "rgba(255, 107, 107, 0.1)", "rgba(77, 150, 255, 0.1)", "rgba(255, 199, 95, 0.1)", "rgba(157, 78, 221, 0.1)"];
 
+  function generateMessage() {
+    let message = `${title}\n`;
+    message += `Total: ₦${amount}\n`;
+    message += `Split Type: ${splitType}\n\n`;
+
+    result.forEach((value, index) => {
+      const name = inputs[index] || `Person ${index + 1}`;
+      message += `${name}: ₦${value.toFixed(2)}\n`;
+    });
+
+    if (note) {
+      message += `\nNote: ${note}`;
+    }
+
+    return message;
+  }
+
+  function handleShare() {
+    const message = generateMessage();
+
+    if (navigator.share) {
+      navigator.share({
+        title: "Split Details",
+        text: message,
+      });
+    } else {
+      alert("Sharing not supported on this device");
+    }
+  }
+
   return (
     <div className='splitResult'>
       <div style={{
@@ -522,7 +552,7 @@ function SplitResult({result, inputs, note, title, amount, count, splitType, goB
       </div>
 
       <div style={{width: "94%", marginLeft: "3%", display: "flex", justifyContent:"space-between", marginBottom: "20px"}}>
-        <button style={{fontSize:"16px", width: "48%", padding: "12px 0px" , backgroundColor: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-whatsapp" style={{color: "rgba(27, 140, 75)"}}></i> Share</button>
+        <button onClick={handleShare} style={{fontSize:"16px", width: "48%", padding: "12px 0px" , backgroundColor: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-whatsapp" style={{color: "rgba(27, 140, 75)"}}></i> Share</button>
         <button style={{fontSize:"16px", width: "48%", padding: "12px 0px", backgroundColor: "rgba(27, 140, 75)", color: "#fff", borderRadius: "5px", border: "1px solid rgba(120,120,120, 0.4)"}}><i class="bi bi-check2-circle" ></i> Mark as Paid</button>
       </div>
       
