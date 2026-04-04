@@ -10,6 +10,7 @@ export default function App() {
   const [result, setResult] = useState([]);
   const [note, setNote] = useState("");
   const [title, setTitle] = useState("");
+  const [showResult, setShowResult] = useState(false);
   
 
   function increasePeople() {
@@ -79,6 +80,13 @@ export default function App() {
   function handleCalculate() {
     const res = calculateSplit(amount, count, splitType, values);
     setResult(res);
+
+    if(res.length > 0) {
+      setShowResult(true);
+    } else {
+      alert("Please enter a valid amount and ensure there is at least one participant.");
+    }
+     
   }
 
   handleNoteChange("");
@@ -87,8 +95,9 @@ export default function App() {
 
 
 
-  return(
-    <div className='App'>
+ return (
+  <div className='App'>
+    {!showResult ? (
       <CreateSplit 
         count={count} 
         increasePeople={increasePeople} 
@@ -108,10 +117,20 @@ export default function App() {
         setNote={setNote}
         title={title}
         setTitle={setTitle}
-        
       />
-      <SplitResult result={result} inputs={inputs} note={note} title={title} amount={amount} count={count} splitType={splitType}/>
-    </div>
+    ) : (
+      <SplitResult 
+        result={result} 
+        inputs={inputs} 
+        note={note} 
+        title={title} 
+        amount={amount} 
+        count={count} 
+        splitType={splitType}
+        goBack={() => setShowResult(false)}
+      />
+    )}
+  </div>
   );
 }
 
@@ -347,7 +366,7 @@ function CreateSplit(props) {
   );
 }
 
-function SplitResult({result, inputs, note, title, amount, count, splitType}) {
+function SplitResult({result, inputs, note, title, amount, count, splitType, goBack}) {
 
   const colors = ["#1B8C4B", "#FF6B6B", "#4D96FF", "#FFC75F", "#9D4EDD"];
   const bgColors = ["rgba(27, 140, 75, 0.1)", "rgba(255, 107, 107, 0.1)", "rgba(77, 150, 255, 0.1)", "rgba(255, 199, 95, 0.1)", "rgba(157, 78, 221, 0.1)"];
@@ -361,16 +380,19 @@ function SplitResult({result, inputs, note, title, amount, count, splitType}) {
         paddingTop: "20px", 
         width: "100%",
         backgroundColor: "rgba(225, 242, 232)",
+        display: "flex",
+        justifyContent: "space-between"
         }}>
-        <div style={{display: "flex", columnGap: "15px", width: "92% !important", marginLeft: "3%" }}>
+        <div style={{display: "flex", columnGap: "15px", width: "92% !important", marginLeft: "3%"}}>
           <i class="bi bi-check-circle-fill"></i>
           <div style={{marginTop: "-5px", lineHeight: "5px"}}>
             <h2>Split Result</h2>
             <p style={{color: "rgba(100,100,100)", fontSize: "14px"}}>Here is how this expense is divided</p>
           </div>
+          
         </div>
+        <button onClick={goBack} style={{marginRight: "5%", border: "none", backgroundColor: "transparent"}}><i class="bi bi-arrow-left" style={{fontSize: "30px"}}></i></button>
 
-        
         
       </div>
 
